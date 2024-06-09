@@ -1,0 +1,115 @@
+<app-header
+  *ngIf="!loading"
+  [title]="pokemon != null ? (pokemon.name | titlecase) : getErrorPhrase()"
+  [showBackButton]="true"
+></app-header>
+
+<app-spinner *ngIf="loading"></app-spinner>
+
+<div *ngIf="error != null" class="error">
+  <h1>{{ error.message }}</h1>
+</div>
+
+<div class="container" *ngIf="pokemon">
+  <h1>{{ pokemon.id }}. {{ pokemon.name | titlecase }}</h1>
+
+  <div class="pokemon-image">
+    <img [src]="pokemon.image" width="500" height="500" />
+
+    <button mat-raised-button color="accent" (click)="toggleExtraDetails()">
+      {{ this.hideExtraDetails ? "Show more!" : "Hide details" }}
+    </button>
+  </div>
+
+  <mat-accordion [hidden]="hideExtraDetails">
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Basic information </mat-panel-title>
+        <mat-panel-description>
+          A description of this Pokémon
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ul>
+        <li><strong>Id: </strong> {{ pokemon.id }}</li>
+        <li><strong>Name: </strong> {{ pokemon.name | titlecase }}</li>
+        <li><strong>Height (in decimetres): </strong> {{ pokemon.height }}</li>
+        <li><strong>Weight (in hectograms): </strong> {{ pokemon.weight }}</li>
+      </ul>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Abilities ({{ pokemon.abilities.length }})
+        </mat-panel-title>
+        <mat-panel-description>
+          A list of abilities this Pokémon could potentially have
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ul [ngClass]="{ columns: pokemon.abilities.length > 9 }">
+        <li *ngFor="let ability of pokemon.abilities">
+          {{ ability | titlecase }}
+        </li>
+      </ul>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Moves ({{ pokemon.moves.length }}) </mat-panel-title>
+        <mat-panel-description>
+          A list of moves the Pokémon can learn
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ul [ngClass]="{ columns: pokemon.moves.length > 9 }">
+        <li *ngFor="let move of pokemon.moves">
+          {{ move | titlecase }}
+        </li>
+      </ul>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Held Items ({{ pokemon.heldItems.length }})</mat-panel-title
+        >
+        <mat-panel-description>
+          A list of items this Pokémon may be holding when encountered
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ul
+        [ngClass]="{ columns: pokemon.heldItems.length > 9 }"
+        *ngIf="pokemon.heldItems && pokemon.heldItems.length > 0; else noItems"
+      >
+        <li *ngFor="let heldItem of pokemon.heldItems">
+          {{ heldItem | titlecase }}
+        </li>
+      </ul>
+      <ng-template #noItems>
+        <p>No items held.</p>
+      </ng-template>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Official Artwork</mat-panel-title>
+        <mat-panel-description>
+          The sprites of the official artwork
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <img [src]="pokemon.artwork" />
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Cry </mat-panel-title>
+        <mat-panel-description>
+          The latest cry used to depict this Pokémon in the game
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <audio controls>
+        <source [src]="pokemon.cry" type="audio/ogg" />
+        Your browser does not support the audio element.
+      </audio>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

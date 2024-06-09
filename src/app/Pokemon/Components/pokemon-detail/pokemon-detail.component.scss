@@ -1,0 +1,28 @@
+h1 {
+  text-align: center;
+  margin: 24px 0;
+}
+
+.error {
+  background-color: #ffd740;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 90vw;
+  margin: 24px auto 0 auto;
+}
+
+.columns {
+  columns: 3;
+}
+
+.container {
+  width: 90vw;
+  margin: 0 auto;
+  padding-bottom: 24px;
+}
+
+.pokemon-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

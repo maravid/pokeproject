@@ -1,0 +1,64 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**",
+          "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "poke-api",
+      "urls": ["https://pokeapi.co/api/v2/pokemon**"],
+      "cacheConfig": {
+        "maxSize": 15,
+        "maxAge": "1d",
+        "timeout": "1s",
+        "strategy": "performance"
+      }
+    },
+    {
+      "name": "poke-images",
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 15,
+        "maxAge": "1d",
+        "timeout": "1s",
+        "strategy": "performance"
+      }
+    },
+    {
+      "name": "fonts",
+      "urls": ["https://fonts.gstatic.com/**"],
+      "cacheConfig": {
+        "maxSize": 10,
+        "maxAge": "1d",
+        "timeout": "1s",
+        "strategy": "performance"
+      }
+    }
+  ]
+}

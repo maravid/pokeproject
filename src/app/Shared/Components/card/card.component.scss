@@ -1,0 +1,10 @@
+.card {
+  max-width: 400px;
+  min-width: 300px;
+  margin: 12px;
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: #ffd740;
+}

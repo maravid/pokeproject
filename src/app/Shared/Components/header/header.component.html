@@ -1,0 +1,7 @@
+<mat-toolbar color="primary">
+  <span>{{ title }}</span>
+  <span class="spacer"></span>
+  <button *ngIf="showBackButton" mat-raised-button (click)="back()">
+    Back
+  </button>
+</mat-toolbar>

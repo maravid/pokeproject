@@ -1,0 +1,46 @@
+<app-header title="Pokemon List" [showBackButton]="false"></app-header>
+
+<app-spinner *ngIf="loading"></app-spinner>
+
+<div *ngIf="error != null" class="error">
+  <h1>{{ error.message }}</h1>
+</div>
+
+<div class="container" *ngIf="!loading && !error">
+  <h1>Choose a Pokemon to know more!</h1>
+
+  <div class="view-selector">
+    <mat-button-toggle-group
+      [(ngModel)]="viewMode"
+      (ngModelChange)="viewChanged($event)"
+    >
+      <mat-button-toggle value="list" aria-label="View as list">
+        <mat-icon>view_list</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="grid" aria-label="View as grid">
+        <mat-icon>grid_view</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <mat-paginator
+    class="paginator"
+    (page)="pageChanged($event)"
+    [length]="totalResults"
+    [pageSize]="pageSize"
+    [pageIndex]="page"
+    [pageSizeOptions]="[20, 50, 100]"
+    showFirstLastButtons="true"
+    aria-label="Select page"
+  >
+  </mat-paginator>
+
+  <app-pokemon-list-view
+    *ngIf="viewMode === 'list'"
+    [data]="pokemonList"
+  ></app-pokemon-list-view>
+  <app-pokemon-grid-view
+    *ngIf="viewMode === 'grid'"
+    [data]="pokemonList"
+  ></app-pokemon-grid-view>
+</div>

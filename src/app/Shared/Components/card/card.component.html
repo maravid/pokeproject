@@ -1,0 +1,13 @@
+<mat-card *ngIf="data" class="card" (click)="navigate()">
+  <mat-card-header>
+    <mat-card-title>{{ data.title | titlecase }}</mat-card-title>
+  </mat-card-header>
+  <img
+    mat-card-image
+    [src]="data.image"
+    [alt]="data.title | titlecase"
+    width="300"
+    height="300"
+  />
+  <mat-card-content [innerHTML]="data.description"> </mat-card-content>
+</mat-card>
